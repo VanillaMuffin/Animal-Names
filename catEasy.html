@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <meta charset="UTF-8">
+<script>
+    let optionsSelected;
+    let resultArray = [];
+    let sound = true;
+    
+    function playMeow(){
+        var audio = new Audio('sound/meow.mp3');
+        if(sound)
+            audio.play();
+    }
+    function soundOf(){
+        if(sound == true){
+            sound = false;
+            document.getElementById("sound").innerHTML="Vklopi zvok";
+        }
+        else {
+            sound = true;
+            document.getElementById("sound").innerHTML="Izklopi zvok";
+        }
+              
+    }
+    function playWon(){
+        var audio = new Audio('sound/youWon.mp3');
+        if(sound)
+            audio.play();
+    }
+    function selected(element){
+        var parent = document.getElementById(element).parentElement.id;
+        var child = document.getElementById(element).id;
+        
+        if(parent == "toolbar2"){
+            optionsSelected = document.getElementById(element);
+            var siblings = document.getElementById(element).parentNode.childNodes;
+            for (i = 0; i < siblings.length; i++) {
+                if(siblings[i].id != undefined)
+                    document.getElementById(siblings[i].id).setAttribute("class", "");
+            }
+            document.getElementById(element).setAttribute("class", "clickedImg")
+        }
+        else{ // če je izbrana slika v resultu
+            if(optionsSelected != null){
+                document.getElementById(element).src = optionsSelected.src;
+                document.getElementById(element).setAttribute("data-id",optionsSelected.id);
+                console.log(optionsSelected.id);
+                if(element == "ena" && optionsSelected.id =="m"){
+                    document.getElementById("ena").setAttribute("style","border: 3px solid green;border-radius:20px;");
+                    playMeow();
+                }
+                    
+                else if(element == "dva" && optionsSelected.id =="a1"){
+                    document.getElementById("dva").setAttribute("style","border: 3px solid green;border-radius:20px;");
+                    playMeow();
+                }
+                else if(element == "dva" && optionsSelected.id =="a2"){
+                    document.getElementById("dva").setAttribute("style","border: 3px solid green;border-radius:20px;");
+                    playMeow();
+                }
+                else if(element == "tri" && optionsSelected.id =="ch"){
+                    document.getElementById("tri").setAttribute("style","border: 3px solid green;border-radius:20px;");
+                    playMeow();
+                }
+                else if(element == "stiri" && optionsSelected.id =="k"){
+                    document.getElementById("stiri").setAttribute("style","border: 3px solid green;border-radius:20px;");
+                    playMeow();
+                }
+                else if(element == "pet" && optionsSelected.id =="a1"){
+                    document.getElementById("pet").setAttribute("style","border: 3px solid green;border-radius:20px;");
+                    playMeow();
+                }
+                else if(element == "pet" && optionsSelected.id =="a2"){
+                    document.getElementById("pet").setAttribute("style","border: 3px solid green;border-radius:20px;");
+                    playMeow();
+                }
+                optionsSelected.setAttribute("class", "");
+                optionsSelected = null;
+                
+            }
+            else{
+                document.getElementById(element).src = "img/gray.jpg";
+                document.getElementById(element).setAttribute("data-id","");
+            }
+        }
+        
+        resultArray = [];
+        var siblings = document.getElementById("toolbar1").childNodes;
+        for (i = 0; i < siblings.length; i++) {
+                if(siblings[i].id != undefined){
+                    resultArray.push(siblings[i].getAttribute("data-id"));
+                }
+                    
+        }
+        console.log("------------");
+        var out = resultArray.toString();
+        if(out == "m,a2,ch,k,a1" || out == "m,a1,ch,k,a2" || out == "m,a1,ch,k,a1" || out == "m,a2,ch,k,a2"){
+            var siblings = document.getElementById("toolbar2").childNodes;
+            for (i = 0; i < siblings.length; i++) {
+                if(siblings[i].id != undefined){
+                    resultArray.push(siblings[i].setAttribute("onclick",""));
+                }    
+            }
+            var siblings = document.getElementById("toolbar1").childNodes;
+            for (i = 0; i < siblings.length; i++) {
+                if(siblings[i].id != undefined){
+                    resultArray.push(siblings[i].setAttribute("onclick",""));
+                }    
+            }
+            playWon();
+        }
+        //console.log(out);
+        /*
+        for(i=0; i< resultArray.length;i++)
+            console.log(resultArray[i]);
+        */
+        
+    }
+
+
+</script>
+    
+<style>
+    body {
+        background-image: url("img/background.jpg"); 
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position:top;
+        margin: 0px;
+        height: 100%;
+    }
+    html {margin: 0px;height: 100%;}
+    div {width: 100%;}
+    #container {width: auto;height:inherit;}
+    #w3-bar {height: 8%;background-color: #bb99ff; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px }
+    #top_bar:hover {background-color: #ccb3ff; }
+    #picture {height: 45%;}
+    
+    #pic_container {margin: 0 auto;height: 100%;width:50%;text-align: center}
+    #pic_container img {max-width: 100%;max-height: 100%;margin: 0 auto; }
+    
+    #options {height: 20%; width: auto; padding: 0 auto;text-align: center;} 
+    #toolbar2 { width: 100%;  height: 100%; display: inline;;} 
+    #options img {border-radius: 30px; max-width: 100%;max-height: 100%;margin-top: 10px;margin-left: 2px;margin-right: 2px }
+    
+    
+    #result  {height: 20%; width: auto; padding:auto;text-align: center}
+    #toolbar1 { width: 100%;  height:100%; } 
+    #result img {border-radius: 30px; max-width: 100%;max-height: 100%;margin-top: 7px;margin-left: 2px;margin-right: 2px }
+    .clickedImg{border: 2px solid #ffff99;}
+    #top_bar {width:100%x;height: 8%; display:inline-block;overflow: auto;white-space: nowrap;margin:0px auto;}
+
+    
+    
+</style>
+</head>
+<body>
+    <div id="container">
+<div class="w3-bar">
+  <button class="w3-bar-item w3-button w3-green " style="width:33.3%;border-bottom-left-radius: 10px" onclick="location.href='index.html'">Začetna stran</button>
+  <button id="sound" class="w3-bar-item w3-button w3-teal" style="width:33.3%" onclick="soundOf()">Izklopi zvok</button>
+  <button class="w3-bar-item w3-button w3-red" style="width:33.3%;border-bottom-right-radius: 10px">Naslednja uganka</button>
+</div>
+        <div id ="picture">
+            <div id="pic_container">
+                <img src="img/cat.png" id="object" onclick="playMeow()">
+            </div>
+        </div>
+        <div id = "result">
+            <div id="toolbar1">
+
+                <img id="ena" src="img/m.jpeg" onclick="selected(this.id);" width="120" height="100">
+                <img id="dva" src="img/a.jpeg" onclick="selected(this.id);" width="120" height="100">
+                <img id="tri" src="img/ch.jpeg" onclick="selected(this.id);" width="120" height="100">
+                <img id="stiri" src="img/k.jpeg" onclick="selected(this.id);" width="120" height="100">
+                <img id="pet" src="img/a.jpeg" onclick="selected(this.id);" width="120" height="100">
+            </div>
+        </div>
+        <div id="options"> 
+            <div id="toolbar2">
+                <img id="k" src="img/k.jpeg" onclick="selected(this.id);" width="120" height="100">
+                <img id="ch" src="img/ch.jpeg" onclick="selected(this.id)" width="120" height="100">
+                <img id="a1" src="img/a.jpeg" onclick="selected(this.id)" width="120" height="100">
+                <img id="m" src="img/m.jpeg" onclick="selected(this.id)" width="120" height="100">
+                <img id="a2" src="img/a.jpeg" onclick="selected(this.id)" width="120" height="100">
+            </div>
+        </div>
+        
+    </div>
+
+
+</body>
+</html>
